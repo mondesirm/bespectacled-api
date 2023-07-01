@@ -1,0 +1,57 @@
+parameters:
+  schedulesB:
+    - { broadway: 1, date: '2023-02-10', times: ['20:00'] }
+    - { broadway: 1, date: '2023-02-11', times: ['14:00', '20:00'] }
+    - { broadway: 1, date: '2023-02-12', times: ['13:00', '18:30'] }
+    - { broadway: 1, date: '2023-02-14', times: ['19:00'] }
+    - { broadway: 1, date: '2023-02-15', times: ['19:00'] }
+
+    - { broadway: 2, date: '2023-02-10', times: ['20:00'] }
+    - { broadway: 2, date: '2023-02-11', times: ['14:00', '20:00'] }
+    - { broadway: 2, date: '2023-02-12', times: ['13:00', '18:30'] }
+    - { broadway: 2, date: '2023-02-14', times: ['19:00'] }
+    - { broadway: 2, date: '2023-02-15', times: ['19:00'] }
+
+    - { broadway: 3, date: '2023-02-10', times: ['20:00'] }
+    - { broadway: 3, date: '2023-02-11', times: ['14:00', '20:00'] }
+    - { broadway: 3, date: '2023-02-13', times: ['20:00'] }
+    - { broadway: 3, date: '2023-02-14', times: ['19:00'] }
+    - { broadway: 3, date: '2023-02-15', times: ['14:00', '20:00'] }
+
+    - { broadway: 4, date: '2023-02-10', times: ['20:00'] }
+    - { broadway: 4, date: '2023-02-11', times: ['14:00', '20:00'] }
+    - { broadway: 4, date: '2023-02-12', times: ['19:00'] }
+    - { broadway: 4, date: '2023-02-14', times: ['19:00'] }
+    - { broadway: 4, date: '2023-02-15', times: ['19:00'] }
+
+    - { broadway: 5, date: '2023-02-10', times: ['19:00'] }
+    - { broadway: 5, date: '2023-02-11', times: ['14:00', '20:00'] }
+    - { broadway: 5, date: '2023-02-12', times: ['15:00'] }
+    - { broadway: 5, date: '2023-02-14', times: ['19:00'] }
+    - { broadway: 5, date: '2023-02-15', times: ['19:00'] }
+
+  schedulesC:
+    - { concert: 1, date: '2023-02-14', times: ['20:00'] }
+    - { concert: 1, date: '2023-03-26', times: ['20:00'] }
+    - { concert: 1, date: '2023-04-22', times: ['20:00'] }
+    - { concert: 1, date: '2023-05-05', times: ['20:00'] }
+    - { concert: 1, date: '2023-06-02', times: ['20:00'] }
+
+    - { concert: 2, date: '2023-05-26', times: ['18:30'] }
+    - { concert: 2, date: '2023-05-27', times: ['18:30'] }
+    - { concert: 2, date: '2023-05-28', times: ['18:30'] }
+
+    - { concert: 3, date: '2023-08-23', times: ['20:30'] }
+    - { concert: 3, date: '2023-08-24', times: ['20:30'] }
+    - { concert: 3, date: '2023-08-26', times: ['20:30'] }
+    - { concert: 3, date: '2023-08-27', times: ['20:30'] }
+
+App\Entity\Schedule:
+  dayB{1..25}:
+    event: "@broadway<($schedulesB[$current - 1]['broadway'])>"
+    date: <($schedulesB[$current - 1]['date'])>
+    times: <($schedulesB[$current - 1]['times'])>
+  dayC{1..12}:
+    event: "@concert<($schedulesC[$current - 1]['concert'])>"
+    date: <($schedulesC[$current - 1]['date'])>
+    times: <($schedulesC[$current - 1]['times'])>

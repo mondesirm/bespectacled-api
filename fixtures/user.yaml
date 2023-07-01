@@ -1,0 +1,33 @@
+parameters:
+  hash: '$2y$13$tGIaqkEM.iVqquRMK43qyO4UN5hNvjIbIVEFOl2hGDHVcQgvMN/9u'
+  artists:
+    - { username: 'Billy Joel' }
+    - { username: 'Taylor Swift' }
+    - { username: 'Madonna' }
+    - { username: 'Wizkid' }
+
+App\Entity\User:
+  admin:
+    email: 'admin\@bespectacled.com'
+    roles: "[ROLE_ADMIN]"
+    password: <{hash}>
+    username: 'root1'
+    enabled: true
+  artist{1..4}:
+    email: 'artist<current()>\@bespectacled.com'
+    roles: "[ROLE_ARTIST]"
+    password: <{hash}>
+    username: <($artists[$current - 1]['username'])>
+    enabled: true
+  random{1..20}:
+    email: 'random<current()>\@bespectacled.com'
+    roles: "[ROLE_ARTIST]"
+    password: <{hash}>
+    username: 'Random Artist <current()>'
+    enabled: true
+  user{1..5}:
+    email: 'user<current()>\@bespectacled.com'
+    roles: "[ROLE_USER]"
+    password: <{hash}>
+    username: 'User <current()>'
+    enabled: true

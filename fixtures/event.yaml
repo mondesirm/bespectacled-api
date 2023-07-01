@@ -1,0 +1,32 @@
+parameters:
+  broadway:
+    - { venue: 1, title: 'The Lion King', type: 'broadway', price: 162.84, src: 'https://www.nyc.com/images/r/75803/poster.jpg' }
+    - { venue: 2, title: 'Aladdin', type: 'broadway', price: 141.45, src: 'https://www.nyc.com/images/r/1206808/poster.jpg' }
+    - { venue: 3, title: 'The Phantom Of The Opera', type: 'broadway', price: 247.02, src: 'https://www.nyc.com/images/r/1058289/s1058289.jpg' }
+    - { venue: 4, title: 'Wicked', type: 'broadway', price: 144.9, src: 'https://www.nyc.com/images/r/75773/s75773.jpg' }
+    - { venue: 5, title: 'Hamilton', type: 'broadway', price: 211.25, src: 'https://www.nyc.com/images/r/1265184/poster.jpg' }
+  concerts:
+    - { venue: 6, title: 'Billy Joel', type: 'concert', price: 58, src: 'https://www.nyc.com/images/concerts/1_billy_joel.jpg' }
+    - { venue: 7, title: 'Taylor Swift', type: 'concert', price: 892, src: 'https://www.nyc.com/images/concerts/taylor_swift_22.jpg' }
+    - { venue: 6, title: 'Madonna', type: 'concert', price: 165, src: 'https://www.nyc.com/images/concerts/modonna_23.jpg' }
+    - { venue: 8, title: 'Wizkid', type: 'concert', price: 62, src: 'https://www.nyc.com/images/concerts/wizkid_23.jpg' }
+
+App\Entity\Event:
+  broadway{1..5}:
+    title: <($broadway[$current - 1]['title'])>
+    type: <($broadway[$current - 1]['type'])>
+    price: <($broadway[$current - 1]['price'])>
+    description: <paragraphs(5, true)>
+    src: <($broadway[$current - 1]['src'])>
+    venue: "@venue<($broadway[$current - 1]['venue'])>"
+    artists: '<numberBetween(4, 8)>x @random*'
+    # schedules: '<dateTimeBetween("-1 month", "+1 month")>'
+  concert{1..4}:
+    title: <($concerts[$current - 1]['title'])>
+    type: <($concerts[$current - 1]['type'])>
+    price: <($concerts[$current - 1]['price'])>
+    description: <paragraphs(3, true)>
+    src: <($concerts[$current - 1]['src'])>
+    venue: "@venue<($concerts[$current - 1]['venue'])>"
+    artists: ['@artist<current()>']
+    # schedules: '<dateTimeBetween("-1 month", "+1 month")>'

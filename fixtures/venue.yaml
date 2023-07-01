@@ -1,0 +1,21 @@
+parameters:
+  venues:
+    - { name: 'Minskoff Theatre', type: 'broadway', seats: 1710, location: '1515 Broadway - Manhattan, New York, USA', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Minskoff_Theatre_NYC_2007.jpg/375px-Minskoff_Theatre_NYC_2007.jpg' }
+    - { name: 'New Amsterdam Theatre', type: 'broadway', seats: 1702, location: '	214 West 42nd Street - Manhattan, New York, USA', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/New_Amsterdam_Theatre.jpg/338px-New_Amsterdam_Theatre.jpg' }
+    - { name: 'Majestic Theatre', type: 'broadway', seats: 1681, location: '245 West 44th Street - Manhattan, New York, USA', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Majestic_Theatre_-_NYC_%2852302522949%29.jpg/375px-Majestic_Theatre_-_NYC_%2852302522949%29.jpg' }
+    - { name: 'Gershwin Theatre', type: 'broadway', seats: 1933, location: '222 West 51st Street - Manhattan, New York, USA', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Gershwin2022.jpg/390px-Gershwin2022.jpg' }
+    - { name: 'Richard Rodgers Theatre', type: 'broadway', seats: 1400, location: '226 West 46th Street - Manhattan, New York, USA', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Rodgers_Theater_-_Hamilton_%2848193460677%29.jpg/375px-Rodgers_Theater_-_Hamilton_%2848193460677%29.jpg' }
+    - { name: 'Madison Square Garden', type: 'concert', seats: 20000, location: '4 Pennsylvania Plaza - Manhattan, NYC, USA', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Madison_Square_Garden_%28MSG%29_-_Full_%2848124330357%29.jpg/413px-Madison_Square_Garden_%28MSG%29_-_Full_%2848124330357%29.jpg' }
+    - { name: 'MetLife Stadium', type: 'concert', seats: 82500, location: '1 MetLife Stadium Drive - East Rutherford, New Jersey, USA', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Metlife_stadium_%28Aerial_view%29.jpg/375px-Metlife_stadium_%28Aerial_view%29.jpg' }
+    - { name: 'Barclays Center', type: 'concert', seats: 17000, location: '620 Atlantic Avenue - Brooklyn, NY, USA', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/BarclayCenter-2_%2848034233762%29.jpg/413px-BarclayCenter-2_%2848034233762%29.jpg' }
+
+App\Entity\Venue:
+  venue{1..8}:
+    name: <($venues[$current - 1]['name'])>
+    type: <($venues[$current - 1]['type'])>
+    price: <numberBetween(5000, 10000)>
+    description: <paragraphs(5, true)>
+    seats: <($venues[$current - 1]['seats'])>
+    location: <($venues[$current - 1]['location'])>
+    src: <($venues[$current - 1]['src'])>
+    # events: already specified in event.yaml
